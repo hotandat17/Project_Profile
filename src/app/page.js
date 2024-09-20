@@ -1,113 +1,157 @@
+"use client"
 import Image from "next/image";
+import hd from '../../public/loli.png'
+import '@/assets/css/containerProfile.css'
+import '@/assets/css/containerTime.css'
+import '@/assets/css/containerVN.css'
+import '@/assets/css/container3D.css'
+import { Tilt } from 'react-tilt'
+import { ReactTyped } from "react-typed";
+import Link from 'next/link'
+import { faTiktok, faFacebookF, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Suspense, useEffect, useState } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Environment, OrbitControls } from "@react-three/drei";
+import Model1 from "../../public/Girl1";
 
 export default function Home() {
+  const [day, setDay] = useState()
+  const [month, setMonth] = useState()
+  const [year, setYear] = useState()
+  const [hours, setHours] = useState()
+  const [minutes, setMinutes] = useState()
+  const [seconds, setSeconds] = useState()
+
+  const dateTime = () => {
+    const date = new Date();
+    setDay(String(date.getDate()).padStart(2, '0'));
+    setMonth(String(date.getMonth() + 1).padStart(2, '0'));
+    setYear(String(date.getFullYear()).padStart(2, '0'));
+    setHours(String(date.getHours()).padStart(2, '0'));
+    setMinutes(String(date.getMinutes()).padStart(2, '0'));
+    setSeconds(String(date.getSeconds()).padStart(2, '0'));
+  }
+  useEffect(() => {
+    setInterval(dateTime, 1000);
+  }, [])
+
+  const defaultOptions = {
+    reverse: false,  // reverse the tilt direction
+    max: 35,     // max tilt rotation (degrees)
+    perspective: 1000,   // Transform perspective, the lower the more extreme the tilt gets.
+    scale: 1.1,    // 2 = 200%, 1.5 = 150%, etc..
+    speed: 1000,   // Speed of the enter/exit transition
+    transition: true,   // Set a transition on enter/exit.
+    axis: null,   // What axis should be disabled. Can be X or Y.
+    reset: true,    // If the tilt effect has to be reset on exit.
+    easing: "cubic-bezier(.03,.98,.52,.99)",    // Easing on enter/exit.
+  }
+  const handleControlsChange = (event) => {
+    const { x, y, z } = event.target.object.position; // Tọa độ hiện tại của camera
+    console.log(`Camera Position: x: ${x}, y: ${y}, z: ${z}`);
+  };
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
+      <section className="containerProfile">
+        <Tilt options={defaultOptions} className="profileLeft">
+          <div className="containerProfileLeft">
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+              className="imageAnimation"
+              src={hd}
+              width={400}
+              height={400} />
+          </div>
+        </Tilt>
+        <div className="containerProfileRight">
+          <span>Hey i&rsquo;m </span> <span>Hồ Đạt</span> <br />
+          <span>I&rsquo;m </span>
+          <ReactTyped
+            strings={[
+              "Wibu chính hiệu",
+              "Titoker 3fl",
+              "Dev thất nghiệp",
+              "Soái ca khoai to",
+            ]}
+            typeSpeed={40}
+            backSpeed={50}
+
+            loop
+          >
+            <span className="typeText">Wibu chính hiệu</span>
+          </ReactTyped>
+          <br />
+          <p>Chào các bạn! Mình là Đạt senPai ´꒳`, một otaku chính hiệu với mức độ wibu I&rsquo;siêu phàm.I&rsquo; Nếu bạn thấy mình đang lạc vào thế giới anime, đừng lo – đó chỉ là mình đang tìm cách để đánh bại quái vật (hay ít nhất là tìm đường ra khỏi phòng ngủ của mình). Mình có thể tranh luận về sức mạnh của nhân vật anime suốt ngày mà không thấy chán, và nếu bạn cần một người bạn để cười sảng khoái về những tình tiết hài hước trong manga, thì mình chính là người bạn lý tưởng!</p>
+          <div className="containerIcon">
+            <ul>
+              <li><Link href="https://www.tiktok.com/@ho.dat.09.08.02?is_from_webapp=1&sender_device=pc" legacyBehavior>
+                <a target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faTiktok} bounce />
+                </a>
+              </Link></li>
+              <li>
+                <Link href="https://www.facebook.com/tandat.ho.566" legacyBehavior>
+                  <a target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon icon={faFacebookF} bounce />
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="https://github.com/hotandat17" legacyBehavior>
+                  <a target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon icon={faGithub} bounce />
+                  </a>
+                </Link>
+              </li>
+
+            </ul>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <section className="containerTime">
+        <div>
+          <h1>{year}</h1>
+          <h2>{day}<span className="time">-</span>{month}  - {hours}<span className="time">:</span>{minutes}<span className="time">:</span>{seconds}</h2>
+        </div>
+      </section>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+      <section className='container3D'>
+        <div>
+          <Canvas camera={{
+            position: [-146.04657119518134, 81.64441727476375, 20.059030655180095]
+          }}>
+            <Suspense fallback={null}>
+              <ambientLight scale={-0.5} />
+              <OrbitControls enableZoom={false} target={[0, 45, 0]} />
+              <Model1 />
+            </Suspense>
+            <Environment preset="sunset" />
+          </Canvas>
+        </div>
+        <div>
+          <h1>KỸ NĂNG </h1>
+          <p>JavaScript </p> <progress value="80" max="100"></progress>
+          <p>Express </p> <progress value="80" max="100"></progress>
+          <p>Sequelize </p> <progress value="70" max="100"></progress>
+          <p>Python </p> <progress value="50" max="100"></progress>
+          <p>Java </p> <progress value="40" max="100"></progress>
+        </div>
+      </section>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <section className="containerVN">
+        <div class="flag">
+          <div class="star"></div>
+        </div>
+        <div>
+          <h1>VIỆT NAM</h1>
+          <h3>Tôi yêu Việt Nam</h3>
+          <p>( I Love Vietnamese )</p>
+          <h3>Hoàng Sa -Trường Sa <br /> là của Việt Nam</h3>
+          <p>( Hoang Sa - Truong Sa belong to Vietnamese )</p>
+          <span> Trung Quốc và cali đầu buồi </span>
+        </div>
+      </section>
     </main>
   );
 }

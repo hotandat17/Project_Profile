@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Nerko+One&family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Nerko+One&family=Oswald&family=Protest+Guerrilla&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Merienda:wght@300..900&family=Nerko+One&family=Oswald&family=Protest+Guerrilla&display=swap');
+
+.containerProfile {
+    width: 90%;
+    display: flex;
+    margin: 0 auto;
+    margin-top: 22px;
+    margin-bottom: 10%;
+    align-items: center;
+    justify-content: space-around
+}
+
+.containerProfile .profileLeft {
+    max-width: 40%;
+    z-index: 1;
+    position: relative;
+    /* background: black; */
+}
+
+.containerProfile .profileLeft::after {
+    content: "";
+    width: 92%;
+    height: 96%;
+    background-color: #00a600;
+    display: block;
+    border-radius: 3em;
+    z-index: -1;
+    position: absolute;
+    top: 7px;
+    left: 4%;
+    transition: 1s;
+    box-shadow: 0 0 20px 4px #00a600;
+    animation: rotate 15s infinite linear
+}
+
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.containerProfile .profileLeft .containerProfileLeft {
+    filter: drop-shadow(2px 4px 17px #7eff7d7d);
+    border-radius: 5em;
+    box-shadow: 1px 1px 20px 1px #7eff7d7d;
+    overflow: hidden;
+    background: black;
+}
+
+
+
+.containerProfile .profileLeft .containerProfileLeft .imageAnimation {
+    transition: 2s;
+    animation: imageAnimation 4s infinite cubic-bezier(1, 0, 0.17, 1.01);
+}
+
+@keyframes imageAnimation {
+    0% {
+        transform: translateY(10px);
+    }
+
+
+
+    100% {
+        transform: scale(1.5);
+    }
+}
+
+.containerProfile .containerProfileRight {
+    max-width: 50%;
+
+}
+
+.containerProfile .containerProfileRight span {
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+}
+
+.containerProfile .containerProfileRight span:nth-child(2) {
+    color: #00a600;
+    font-family: "Protest Guerrilla", sans-serif;
+}
+
+.containerProfile .containerProfileRight span:nth-child(4) {
+    font-family: "Merienda", cursive;
+}
+
+.containerProfile .containerProfileRight .typeText {
+    font-family: "Merienda", cursive;
+    color: #00a600;
+}
+
+.containerProfile .containerProfileRight p {
+    font-size: 20px;
+}
+
+.containerProfile .containerProfileRight .containerIcon {
+    font-size: large;
+}
+
+.containerProfile .containerProfileRight .containerIcon ul {
+    display: flex;
+    text-decoration: none;
+    list-style: none;
+    justify-content: center;
+    padding-top: 16px;
+}
+
+.containerProfile .containerProfileRight .containerIcon ul li {
+    padding: 5px;
+    border-radius: 73px;
+    width: 26px;
+    margin-left: 18px;
+    height: 28px;
+    box-shadow: 0 0 8px 2px #00a600;
+    color: #00a600;
+    cursor: pointer;
+}
+
+.containerProfile .containerProfileRight .containerIcon ul li a {
+    color: #00a600;
+}
+
+.containerProfile .containerProfileRight .containerIcon ul li :hover {
+    box-shadow: 0 0 20px 2px #00a600;
+    border-radius: 73px;
+}
+
+@media (max-width: 1200px) {
+    .containerProfile {
+        flex-direction: column;
+    }
+
+    .containerProfile .profileLeft {
+        max-width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .containerProfile {
+        flex-direction: column;
+    }
+
+    .containerProfile .profileLeft {
+        max-width: 80%;
+    }
+
+    .containerProfile .profileLeft .containerProfileLeft .imageAnimation {
+        width: 4em;
+        height: 4em;
+    }
+
+    .containerProfile .containerProfileRight {
+        max-width: 90%;
+    }
+
+    .containerProfile .containerProfileRight span {
+        font-size: x-large;
+    }
+
+    .containerProfile .containerProfileRight span:nth-child(2) {
+        font-size: x-large;
+    }
+
+    .containerProfile .containerProfileRight span:nth-child(4) {
+        font-size: x-large;
+    }
+
+    .containerProfile .containerProfileRight .typeText {
+        font-size: x-large;
+    }
+}
+
+@media (max-width: 480px) {
+    .containerProfile {
+        flex-direction: column;
+        width: 95%;
+    }
+
+    .containerProfile .profileLeft {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .containerProfile .profileLeft::after {
+        width: 98%;
+        height: 98%;
+        top: 5px;
+        left: 1%;
+    }
+
+    .containerProfile .profileLeft .containerProfileLeft .imageAnimation {
+        width: 4em;
+        height: 4em;
+    }
+
+    .containerProfile .containerProfileRight {
+        max-width: 90%;
+    }
+
+    .containerProfile .containerProfileRight span {
+        font-size: x-large;
+    }
+
+    .containerProfile .containerProfileRight span:nth-child(2) {
+        font-size: x-large;
+    }
+
+    .containerProfile .containerProfileRight span:nth-child(4) {
+        font-size: x-large;
+    }
+
+    .containerProfile .containerProfileRight .typeText {
+        font-size: x-large;
+    }
+}

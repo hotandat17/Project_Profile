@@ -1,0 +1,22 @@
+.ContainerRegister {
+    width: 50%;
+    height: 10em;
+    box-shadow: 0 0 20px 10px #4fe04f;
+    transform: translateX(0%) translateY(40%);
+    margin: 0 auto;
+    border-radius: 22px;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ContainerRegister p {
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .ContainerRegister {
+        width: 80%;
+    }
+}

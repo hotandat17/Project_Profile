@@ -1,0 +1,37 @@
+.containerTime {
+    margin: 0 auto;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 6%;
+}
+
+.containerTime div {
+    max-width: 100%;
+}
+
+.containerTime div h1 {
+    font-size: 3em;
+    background: linear-gradient(260deg, #77fc05, #00a600eb);
+    font-family: 'Oswald';
+    -webkit-background-clip: text;
+    color: black;
+    border-bottom: 1px solid #005824;
+}
+
+.containerTime div h2 .time {
+    transition: 1s;
+    animation: time 1s ease-in-out infinite;
+}
+
+@keyframes time {
+    0% {
+        color: #005824;
+    }
+
+    100% {
+        color: #00582500;
+    }
+
+}
