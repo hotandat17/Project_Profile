@@ -48,7 +48,7 @@ export default function Page() {
                 setDoc(viewProduct.data.data.data);
                 setTotalPage(viewProduct.data.data.totalPage)
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         };
 

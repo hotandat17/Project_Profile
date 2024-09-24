@@ -36,6 +36,6 @@ const refsherToken = async () => {
         const request = await axios.post('/api/v1/refreshToken', {}, { withCredentials: true })
         return request.data
     } catch (error) {
-        console.log(error)
+        // console.log(error)
     }
 }

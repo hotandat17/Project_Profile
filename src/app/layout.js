@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import Header from "@/compoment/header/header";
 import '@/assets/body.css';
 import { store, persistor } from '@/redux/store';
-import StoreProvider from "./StoreProvider";
+import StoreProvider from "./storeProvider";
 import RootLayoutClient from './Persist';
 import { Metadata } from 'next'
 export const metadata = {

@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import Header from "@/compoment/header/header";
-import StoreProvider from "./StoreProvider";
+import StoreProvider from "./storeProvider";
 import { store, persistor } from '@/redux/store';
 
 const PersistGate = dynamic(
