@@ -173,6 +173,7 @@ export default function Page() {
                                 <label htmlFor="editContent">Nội dung:</label><br />
                                 <textarea id="editContent" name="content" rows="4" value={linkUpdate} onChange={e => setLinkUpdate(e.target.value)} required /><br />
                                 <button type="submit">Lưu thay đổi</button>
+                                <button type="submit">Lưu thay đổi</button>
                             </form>
                         </div>
                     </div>
