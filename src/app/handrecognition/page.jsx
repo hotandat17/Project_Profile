@@ -41,32 +41,40 @@ export default function Page() {
     return (
         <>
             <h1>Nhận diện bàn tay và vẽ tranh (chưa hoàn thành vẽ tranh !!!)</h1>
-            <Webcam ref={webcamRef}
-                tyle={{
+            <Webcam
+                ref={webcamRef}
+                style={{
                     position: "absolute",
                     marginLeft: "auto",
                     marginRight: "auto",
                     left: 0,
                     right: 0,
                     textAlign: "center",
-                    zindex: 9,
-                    width: 640,
-                    height: 480,
+                    zIndex: 9,
+                    width: "80vw",   // Chiếm 80% chiều rộng của viewport
+                    height: "auto",  // Tự động điều chỉnh chiều cao theo chiều rộng
+                    maxWidth: "640px", // Giới hạn chiều rộng tối đa
+                    maxHeight: "480px", // Giới hạn chiều cao tối đa
                 }}
             />
-            <canvas ref={canvaRef}
+
+            <canvas
+                ref={canvaRef}
                 style={{
                     position: "absolute",
                     marginLeft: "auto",
                     marginRight: "auto",
                     left: 0,
-                    right: "42em",
+                    right: 0,
                     textAlign: "center",
-                    zindex: 9,
-                    width: 640,
-                    height: 480,
+                    zIndex: 9,
+                    width: "80vw",    // Chiếm 80% chiều rộng của viewport
+                    height: "auto",   // Tự động điều chỉnh chiều cao
+                    maxWidth: "640px", // Giới hạn chiều rộng tối đa
+                    maxHeight: "480px", // Giới hạn chiều cao tối đa
                 }}
             />
+
         </>
     )
 }
