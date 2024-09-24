@@ -44,11 +44,11 @@ export default function Page() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const viewProduct = await axios.get(`/api/admin/sharedoc?search=${search}&page=${page}`);
+                const viewProduct = await axios.get(`/api/pages/sharedoc?search=${search}&page=${page}`);
                 setDoc(viewProduct.data.data.data);
                 setTotalPage(viewProduct.data.data.totalPage)
             } catch (error) {
-                // console.log(error);
+                console.log(error);
             }
         };
 

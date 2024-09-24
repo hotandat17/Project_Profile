@@ -129,7 +129,7 @@ export const adminProduct = (page = 1, search) => new Promise(async (resolve, re
         if (search) {
             objectSearch.title = { $regex: search, $options: 'i' };
         }
-        const request = await Product.find({ status: true, ...objectSearch }).limit(limit).skip(pageSize).limit(limit).select('-userId -_id -status -dateTime -__v').sort({ _id: -1 })
+        const request = await Product.find({ status: true, ...objectSearch }).limit(limit).skip(pageSize).limit(limit).select('-_id -status -__v -userId').sort({ _id: -1 })
 
 
         return resolve({
