@@ -50,7 +50,7 @@ export default function Home() {
   }
   const handleControlsChange = (event) => {
     const { x, y, z } = event.target.object.position; // Tọa độ hiện tại của camera
-    console.log(`Camera Position: x: ${x}, y: ${y}, z: ${z}`);
+    // console.log(`Camera Position: x: ${x}, y: ${y}, z: ${z}`);
   };
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

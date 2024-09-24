@@ -1,7 +1,7 @@
 'use client';
 import "@/assets/css/header.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faBook, faToolbox, faSun, faMoon } from "@fortawesome/free-solid-svg-icons"
+import { faUser, faBook, faToolbox, faSun, faMoon, faRobot } from "@fortawesome/free-solid-svg-icons"
 import Link from 'next/link'
 import { useState, useEffect } from "react"
 export default function Header() {
@@ -72,7 +72,7 @@ export default function Header() {
         <section className="header">
             <ul >
                 <h2><Link className='linkHeader' href="/"><span>H</span><span>Ồ</span> <span>Đ</span><span>Ạ</span><span>T</span></Link></h2>
-                <li><Link className='linkHeader' href="/"><FontAwesomeIcon icon={faUser} /> Introduce</Link></li>
+                <li><Link className='linkHeader' href="/Ai"><FontAwesomeIcon icon={faRobot} /> AI</Link></li>
                 <li><Link className='linkHeader' href="/shareDocs"><FontAwesomeIcon icon={faBook} />ShareDocs</Link></li>
                 <li><Link className='linkHeader' href="/shareApp"><FontAwesomeIcon icon={faToolbox} /> ShareApp</Link></li>
                 <li onClick={themeBackground}>

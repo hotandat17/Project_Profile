@@ -85,7 +85,7 @@ export const updateProduct = async (token, id, title, link) => {
             }
         })
     } catch (error) {
-        console.log(error)
+        // console.log(error)
     }
 }
 
@@ -97,6 +97,6 @@ export const updateStatus = async (token, id, status) => {
             }
         })
     } catch (error) {
-        console.log(error)
+        // console.log(error)
     }
 }

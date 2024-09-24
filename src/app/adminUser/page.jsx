@@ -95,7 +95,7 @@ export default function Page() {
     const handleDStatus = (id) => {
         setStatus(status => !status)
         updateStatus(user?.token, id, status)
-        console.log(status)
+
     }
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -172,7 +172,6 @@ export default function Page() {
                                 <input type="text" id="editTitle" name="title" value={titleUpdate} onChange={e => setTitleUpdate(e.target.value)} required /><br />
                                 <label htmlFor="editContent">Nội dung:</label><br />
                                 <textarea id="editContent" name="content" rows="4" value={linkUpdate} onChange={e => setLinkUpdate(e.target.value)} required /><br />
-                                <button type="submit">Lưu thay đổi</button>
                                 <button type="submit">Lưu thay đổi</button>
                             </form>
                         </div>

@@ -32,7 +32,7 @@ export default function Page() {
             canvaRef.current.height = webcamHeight
 
             const hand = await handModel.estimateHands(webcam)
-            console.log(hand)
+            // console.log(hand)
             const ctx = canvaRef.current.getContext('2d')
             drawHand(hand, ctx)
         }
