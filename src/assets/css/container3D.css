@@ -3,7 +3,61 @@
     margin: 0 auto;
     display: flex;
     margin-bottom: 6%;
+    box-shadow: 0 0 20px 7px #00a60075;
+    border-radius: 12px;
+    position: relative;
 }
+
+.container3D::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 0 20px 7px #00a600;
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotateAround 5s linear infinite;
+}
+
+.container3D::before {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 0 20px 7px #00a600;
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotateAround 5s linear infinite;
+}
+
+@keyframes rotateAround {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(100%, -50%) rotate(90deg);
+    }
+
+    50% {
+        transform: translate(100%, 100%) rotate(180deg);
+    }
+
+    75% {
+        transform: translate(-50%, 100%) rotate(270deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
 
 .container3D div:nth-child(1) {
 
@@ -17,8 +71,8 @@
 }
 
 .container3D div:nth-child(2) {
-    max-width: 50%;
-    width: 50%;
+    max-width: 100%;
+
     font-size: x-large;
 }
 
@@ -47,6 +101,14 @@
     border-radius: 10px;
 }
 
+.container3D .imageCer {
+    border-radius: 12px;
+}
+
+.container3D .imageCer .imagea {
+    max-width: 100%;
+}
+
 @media (max-width: 1200px) {}
 
 @media (max-width: 768px) {
@@ -68,5 +130,13 @@
 
     .container3D div:nth-child(2) progress {
         width: 12em;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container3D .imageCer {
+        max-width: 100%;
+        flex-direction: column;
+        align-items: center;
     }
 }

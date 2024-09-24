@@ -22,17 +22,13 @@ export const getAllProduct = async (disPath, token, page) => {
                 Authorization: `Bearer ${token}`
             }
         })
-        const time = setInterval(() => {
-            request
-            clearInterval(time)
-        }, 1000)
         disPath(productData(request.data))
     } catch (error) {
         disPath(productError)
     }
 }
 
-export const logout = async (dispath, id, token) => {
+export const logout = async (dispath, id, token, router) => {
     dispath(logoutStart)
     try {
         await axiosJWT.post(`/api/v1/logout`, id, {
@@ -41,6 +37,8 @@ export const logout = async (dispath, id, token) => {
             }
         })
         dispath(logoutData)
+        router.push('/login')
+
     } catch (error) {
         dispath(logoutError)
     }
@@ -75,5 +73,30 @@ export const deleteProduct = async (disPath, token, id) => {
         disPath(deleteData)
     } catch (error) {
         disPath(deleteError)
+    }
+}
+
+
+export const updateProduct = async (token, id, title, link) => {
+    try {
+        await axiosJWT.put(`http://localhost:3000/api/v1/product/${id}`, { title, link }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const updateStatus = async (token, id, status) => {
+    try {
+        await axiosJWT.put(`http://localhost:3000/api/v1/product/${id}`, { status: status }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    } catch (error) {
+        console.log(error)
     }
 }
