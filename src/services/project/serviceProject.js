@@ -35,12 +35,12 @@ export const showProduct = ({ userId, page = 1, limit = 6, search }) => new Prom
 
         if (search) {
             objectSearch.title = { $regex: search, $options: 'i' };
-            console.log(objectSearch.title);
+
         }
         const pageInt = parseInt(page)
         const skip = (pageInt - 1) * limit
 
-        const show = await Product.find({ userId, ...objectSearch }).skip(skip).limit(limit);
+        const show = await Product.find({ userId, ...objectSearch }).skip(skip).limit(limit).sort({ _id: -1 });
         const totalCount = await Product.countDocuments({ userId, ...objectSearch })
 
 
@@ -109,6 +109,35 @@ export const editProduct = ({ id, userId, title, link, status }) => new Promise(
             error: 0,
             messange: `Sửa thành công !!!! ${id}`,
             data: edit
+        })
+    } catch (error) {
+        return reject({
+            messenge: -1,
+            error
+        })
+    }
+})
+
+
+export const adminProduct = (page = 1, search) => new Promise(async (resolve, reject) => {
+    try {
+        let limit = 6
+        const pageInt = parseInt(page)
+        const pageSize = (pageInt - 1) * limit
+        const objectSearch = {}
+
+        if (search) {
+            objectSearch.title = { $regex: search, $options: 'i' };
+        }
+        const request = await Product.find({ status: true, ...objectSearch }).limit(limit).skip(pageSize).limit(limit).select('-userId -_id -status -dateTime -__v').sort({ _id: -1 })
+
+
+        return resolve({
+            error: 0,
+            total: request.length,
+            totalPage: Math.ceil(request.length / limit),
+            data: request
+
         })
     } catch (error) {
         return reject({
