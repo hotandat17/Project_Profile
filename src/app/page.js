@@ -1,6 +1,7 @@
 "use client"
 import Image from "next/image";
 import hd from '../../public/loli.png'
+import certificate from '../../public/certificate.png'
 import '@/assets/css/containerProfile.css'
 import '@/assets/css/containerTime.css'
 import '@/assets/css/containerVN.css'
@@ -59,6 +60,7 @@ export default function Home() {
             <Image
               className="imageAnimation"
               src={hd}
+              alt="Hồ Đạt"
               width={400}
               height={400} />
           </div>
@@ -129,19 +131,20 @@ export default function Home() {
             <Environment preset="sunset" />
           </Canvas>
         </div>
-        <div>
-          <h1>KỸ NĂNG </h1>
-          <p>JavaScript </p> <progress value="80" max="100"></progress>
-          <p>Express </p> <progress value="80" max="100"></progress>
-          <p>Sequelize </p> <progress value="70" max="100"></progress>
-          <p>Python </p> <progress value="50" max="100"></progress>
-          <p>Java </p> <progress value="40" max="100"></progress>
+        <div className="imageCer">
+
+          <Image
+            className="imagea"
+            src={certificate}
+            alt="Hồ Đạt"
+            width={665}
+            height={400} />
         </div>
       </section>
 
       <section className="containerVN">
-        <div class="flag">
-          <div class="star"></div>
+        <div className="flag">
+          <div className="star"></div>
         </div>
         <div>
           <h1>VIỆT NAM</h1>

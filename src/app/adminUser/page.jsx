@@ -1,9 +1,10 @@
+
 'use client';
 import React, { useState, useEffect } from 'react'
 import "@/assets/login/adminUser.css"
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { createProduct, deleteProduct, getAllProduct, logout } from '@/redux/apiRequest';
+import { createProduct, deleteProduct, getAllProduct, logout, updateProduct, updateStatus } from '@/redux/apiRequest';
 import { setAxiosJWTInterceptor } from '@/lib/axiosJWT';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
@@ -17,6 +18,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+
+
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
 }
@@ -27,6 +30,9 @@ export default function Page() {
     const [title, setTitle] = useState()
     const [link, setLink] = useState()
     const [status, setStatus] = useState(false)
+    const [id, setId] = useState()
+    const [titleUpdate, setTitleUpdate] = useState()
+    const [linkUpdate, setLinkUpdate] = useState()
     const handleChange = (event, value) => {
         setPage(value);
     };
@@ -35,23 +41,48 @@ export default function Page() {
 
     const user = useSelector(state => state.userData.login.data)
     const productAll = useSelector(state => state.userData.allProduct.data?.data);
+
     useEffect(() => {
-        setAxiosJWTInterceptor(dispatch, user)
-        getAllProduct(dispatch, user?.token, page)
-    }, [page, user?.token])
+        setAxiosJWTInterceptor(dispatch, user);
+    }, [])
+
+    useEffect(() => {
+        const fetchData = () => {
+            getAllProduct(dispatch, user?.token, page);
+        };
+        fetchData();
+        const interval = setInterval(fetchData, 5000);
+        return () => clearInterval(interval);
+    }, []);
+
 
 
     const handleLogout = () => {
-        logout(dispatch, user?.messenge, user?.token)
-        document.cookie = "refreshToken=''"
-        router.push('/login')
+        logout(dispatch, user?.messenge, user?.token, router)
+
+
     }
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
     };
 
-    const handleOpen = () => setEditingPost(true)
+    const handleOpen = (id) => {
+
+        const editProduct = productAll?.data?.find(item => item._id === id)
+        if (editProduct) {
+            setEditingPost(true)
+            setId(id)
+            setTitleUpdate(editProduct.title)
+            setLinkUpdate(editProduct.link)
+        }
+
+    }
+    const handleUpdate = (e) => {
+        e.preventDefault()
+        updateProduct(user?.token, id, titleUpdate, linkUpdate)
+        setEditingPost(false)
+    }
     const handleCreateProduct = (e) => {
         e.preventDefault()
         createProduct(dispatch, user?.token, title, link, status)
@@ -61,8 +92,13 @@ export default function Page() {
     const handleDelete = (id) => {
         deleteProduct(dispatch, user?.token, id);
     }
+    const handleDStatus = (id) => {
+        setStatus(status => !status)
+        updateStatus(user?.token, id, status)
+        console.log(status)
+    }
     return (
-        <div className="App">
+        <main className="flex min-h-screen flex-col items-center justify-between p-24">
             <header>
                 <h1>Dashboard Quản lý Bài viết</h1>
             </header>
@@ -112,11 +148,11 @@ export default function Page() {
                                         >
                                             <TableCell align="right">{row.title}</TableCell>
                                             <TableCell align="right">{row.link}</TableCell>
-                                            <TableCell align="right">{row.status ? "Đã duyệt" : "Hủy duyệt"}</TableCell>
+                                            <TableCell align="right">{row.status ? "Đã duyệt" : "Không duyệt"}</TableCell>
                                             <TableCell align="right">
-                                                <button onClick={() => handleOpen()}>Sửa</button>
+                                                <button onClick={() => handleOpen(row._id)}>Sửa</button>
                                                 <button onClick={() => handleDelete(row._id)}>Xóa</button>
-                                                <button >{row.status ? "Duyệt" : "Hủy"}</button></TableCell>
+                                                <button onClick={() => handleDStatus(row._id)}>{row.status ? "Huỷ" : "Duyệt"}</button></TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -131,17 +167,17 @@ export default function Page() {
                         <div className="modal-content">
                             <span className="close" onClick={() => setEditingPost(null)}>&times;</span>
                             <h2>Sửa bài viết</h2>
-                            <form >
+                            <form onSubmit={handleUpdate}>
                                 <label htmlFor="editTitle">Tiêu đề:</label><br />
-                                <input type="text" id="editTitle" name="title" required /><br />
+                                <input type="text" id="editTitle" name="title" value={titleUpdate} onChange={e => setTitleUpdate(e.target.value)} required /><br />
                                 <label htmlFor="editContent">Nội dung:</label><br />
-                                <textarea id="editContent" name="content" rows="4" required /><br />
+                                <textarea id="editContent" name="content" rows="4" value={linkUpdate} onChange={e => setLinkUpdate(e.target.value)} required /><br />
                                 <button type="submit">Lưu thay đổi</button>
                             </form>
                         </div>
                     </div>
                 )}
             </div>
-        </div>
+        </main>
     );
 }

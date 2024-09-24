@@ -22,6 +22,8 @@
     "@react-three/fiber": "^8.17.6",
     "@react-three/postprocessing": "^2.16.2",
     "@reduxjs/toolkit": "^2.2.7",
+    "@tensorflow-models/handpose": "^0.1.0",
+    "@tensorflow/tfjs": "^4.21.0",
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
@@ -37,6 +39,7 @@
     "react-redux": "^9.1.2",
     "react-tilt": "^1.0.2",
     "react-typed": "^2.0.12",
+    "react-webcam": "^7.2.0",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
     "styled-components": "^6.1.13",
@@ -46,6 +49,6 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.7",
     "postcss": "^8",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.13"
   }
 }

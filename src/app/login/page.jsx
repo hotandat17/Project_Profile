@@ -26,7 +26,7 @@ const LoginComponent = (request) => {
 
 
     return (
-        <div className="container">
+        <div className="containers">
             <div className="card">
                 <h3 className="subtitle">Login</h3>
                 <form onSubmit={loginAdmin}>
