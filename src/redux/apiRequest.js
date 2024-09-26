@@ -91,7 +91,7 @@ export const updateProduct = async (token, id, title, link) => {
 
 export const updateStatus = async (token, id, status) => {
     try {
-        await axiosJWT.put(`http://localhost:3000/api/v1/product/${id}`, { status: status }, {
+        await axiosJWT.put(`/api/v1/product/${id}`, { status: status }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

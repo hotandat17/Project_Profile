@@ -2,7 +2,7 @@ import { adminProduct } from "@/services/project/serviceProject"
 import { NextResponse } from "next/server"
 import { connection } from "../../../../../config/data";
 
-await connection()
+connection()
 export async function GET(req) {
     try {
         const { searchParams } = new URL(req.url);
