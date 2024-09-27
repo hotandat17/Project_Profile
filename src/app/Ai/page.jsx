@@ -56,15 +56,15 @@ export default function Page() {
                                 <TableRow>
                                     <TableCell align="left">Tên</TableCell>
                                     <TableCell align="left">Nội dung</TableCell>
-                                    <TableCell align="right">Link</TableCell>
+                                    <TableCell align="right">Trãi nghiệm</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 <TableRow hover >
                                     <TableCell> Detect Hand</TableCell>
-                                    <TableCell>Nhận diện bàn tay xong rồi vẽ tranh luôn =]]</TableCell>
+                                    <TableCell>Nhận diện bàn tay và Khi bóp bàn tay lạy thì nó sẽ nhận ra đó là tín hiệu SOS vàchupj hình lại những tấm ảnh xung quanh trong 1  phút làm tư liệu </TableCell>
                                     <TableCell align="right">
-                                        <Link style={{ textDecoration: "none" }} href={'/handrecognition'}> <Button variant="outlined">Link</Button></Link>
+                                        <Link style={{ textDecoration: "none" }} href={'/handrecognition'}> <Button variant="outlined">Truy cập</Button></Link>
                                     </TableCell>
                                 </TableRow>
                                 <TableRow hover >
