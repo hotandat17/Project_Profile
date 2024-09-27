@@ -3,14 +3,17 @@ import React, { useRef, useState, useEffect } from 'react'
 import Webcam from "react-webcam";
 import * as tf from '@tensorflow/tfjs'
 import * as handpose from '@tensorflow-models/handpose'
+import { GestureEstimator, Gestures } from 'fingerpose'
 import { drawHand } from '@/lib/draw';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
+import { handSos } from '@/lib/handTrack';
 
 export default function Page() {
     const webcamRef = useRef(null)
     const canvaRef = useRef(null)
     const [status, setStatus] = useState(false)
+    const [emoij, setEmoij] = useState()
 
 
     const handposeHand = async () => {
@@ -36,13 +39,26 @@ export default function Page() {
             canvaRef.current.width = webcamWidth
             canvaRef.current.height = webcamHeight
             const hand = await handModel.estimateHands(webcam)
-            // console.log(hand)
 
+            if (hand.length > 0) {
+                const GE = new GestureEstimator([
+                    handSos
+                ]);
+                const detectHandTrack = await GE.estimate(hand[0].landmarks, 8)
+                if (detectHandTrack.gestures !== "undefined" && detectHandTrack.gestures.length > 0) {
+                    const score = detectHandTrack.gestures.map(prediction => prediction.score)
+                    const maxConfidence = score.indexOf(Math.max.apply(null, score))
+                    setEmoij(detectHandTrack.gestures[maxConfidence].name)
+                }
+            }
             const ctx = canvaRef.current.getContext('2d')
             drawHand(hand, ctx)
         }
     }
-    handposeHand()
+    useEffect(() => {
+        handposeHand();
+    }, []);
+
     return (
         <>
             <h1>Nhận diện bàn tay và Khi bóp bàn tay lạy thì nó sẽ nhận ra đó là tín hiệu SOS vàchupj hình lại những tấm ảnh xung quanh trong 1  phút làm tư liệu (chưa hoàn tất) !!!)</h1>
@@ -58,10 +74,10 @@ export default function Page() {
                             right: 0,
                             textAlign: "center",
                             zIndex: 9,
-                            width: "80vw",   // Chiếm 80% chiều rộng của viewport
-                            height: "auto",  // Tự động điều chỉnh chiều cao theo chiều rộng
-                            maxWidth: "640px", // Giới hạn chiều rộng tối đa
-                            maxHeight: "480px", // Giới hạn chiều cao tối đa
+                            width: "80vw",
+                            height: "auto",
+                            maxWidth: "640px",
+                            maxHeight: "480px",
                         }}
                     />
 
@@ -75,12 +91,28 @@ export default function Page() {
                             right: 0,
                             textAlign: "center",
                             zIndex: 9,
-                            width: "80vw",    // Chiếm 80% chiều rộng của viewport
-                            height: "auto",   // Tự động điều chỉnh chiều cao
-                            maxWidth: "640px", // Giới hạn chiều rộng tối đa
-                            maxHeight: "480px", // Giới hạn chiều cao tối đa
+                            width: "80vw",
+                            height: "auto",
+                            maxWidth: "640px",
+                            maxHeight: "480px",
                         }}
                     />
+                    <div style={{
+                        position: "absolute",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        left: 0,
+                        right: 0,
+                        textAlign: "center",
+                        zIndex: 9,
+                        width: "80vw",
+                        height: "auto",
+                        maxWidth: "640px",
+                        maxHeight: "480px",
+                        background: 'red'
+                    }}>
+                        {emoij !== null ? emoij : "không tìm thấy"}
+                    </div>
                 </>
             ) : (
                 <div><Box sx={{ width: '100%' }}>
