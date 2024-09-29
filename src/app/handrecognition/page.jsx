@@ -7,7 +7,10 @@ import { GestureEstimator, Gestures } from 'fingerpose'
 import { drawHand } from '@/lib/draw';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
-import { handSos } from '@/lib/handTrack';
+import { handSos, thumbsDownGesture } from '@/lib/handTrack';
+import Image from 'next/image'
+import thumb from '../../../public/thumb.png';
+import thumbdow from "../../../public/thumbdow.png"
 
 export default function Page() {
     const webcamRef = useRef(null)
@@ -42,13 +45,22 @@ export default function Page() {
 
             if (hand.length > 0) {
                 const GE = new GestureEstimator([
-                    handSos
+                    handSos,
+                    thumbsDownGesture
                 ]);
+
+
                 const detectHandTrack = await GE.estimate(hand[0].landmarks, 8)
+                if (detectHandTrack !== null && !detectHandTrack.gestures.length > 0) {
+                    setEmoij('Không thấy tín hiệu')
+                }
                 if (detectHandTrack.gestures !== "undefined" && detectHandTrack.gestures.length > 0) {
                     const score = detectHandTrack.gestures.map(prediction => prediction.score)
                     const maxConfidence = score.indexOf(Math.max.apply(null, score))
-                    setEmoij(detectHandTrack.gestures[maxConfidence].name)
+                    const gestures = detectHandTrack.gestures[maxConfidence].name
+
+                    setEmoij(gestures);
+
                 }
             }
             const ctx = canvaRef.current.getContext('2d')
@@ -62,6 +74,7 @@ export default function Page() {
     return (
         <>
             <h1>Nhận diện bàn tay và Khi bóp bàn tay lạy thì nó sẽ nhận ra đó là tín hiệu SOS vàchupj hình lại những tấm ảnh xung quanh trong 1  phút làm tư liệu (chưa hoàn tất) !!!)</h1>
+
             {status ? (
                 <>
                     <Webcam
@@ -111,7 +124,7 @@ export default function Page() {
                         maxHeight: "480px",
                         background: 'red'
                     }}>
-                        {emoij !== null ? emoij : "không tìm thấy"}
+                        {emoij !== '' ? emoij : "Không tìm thấy"}
                     </div>
                 </>
             ) : (
@@ -119,7 +132,24 @@ export default function Page() {
                     <LinearProgress />
                 </Box></div>
             )}
-
+            <div style={{
+                position: "absolute",
+                display: "flex",
+                top: " 70%"
+            }}>
+                <Image
+                    src={thumb}
+                    width={500}
+                    height={500}
+                    alt="Bóp tay lại =]]"
+                />
+                <Image
+                    src={thumbdow}
+                    width={500}
+                    height={500}
+                    alt="tệ thật =]]"
+                />
+            </div>
         </>
     )
 }
